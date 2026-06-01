@@ -1,139 +1,148 @@
 (() => {
   // ─── Fabric database — 6 categories ──────────────────────────────────────
 
+  const Category = Object.freeze({
+    NATURAL_PLANT:  "natural-plant",
+    NATURAL_ANIMAL: "natural-animal",
+    REGENERATED:    "regenerated",
+    SYNTHETIC:      "synthetic",
+    BIOSYNTHETIC:   "biosynthetic",
+    HIDE:           "hide",
+  });
+
   const CATEGORIES = {
-    "natural-plant":   { label: "Pure Natural — Plant",      color: "#4ade80", icon: "🌿", desc: "Harvested directly from plants, no chemical alteration" },
-    "natural-animal":  { label: "Pure Natural — Animal",     color: "#86efac", icon: "🐑", desc: "Harvested from animals, cleaned and spun into yarn" },
-    "regenerated":     { label: "Regenerated Cellulose",     color: "#38bdf8", icon: "🌊", desc: "Plant-based origin, heavy chemical processing to reform fibers" },
-    "synthetic":       { label: "Pure Synthetic",            color: "#f87171", icon: "🛢️", desc: "100% petroleum-derived plastic fibers, sheds microplastics" },
-    "biosynthetic":    { label: "Lab-Grown Biosynthetic",    color: "#c084fc", icon: "🔬", desc: "Bio-engineered proteins or organisms grown in a lab setting" },
-    "hide":            { label: "Animal Hide & Skin",        color: "#d97706", icon: "🐄", desc: "Solid organic material, tanned and cured rather than woven" },
+    [Category.NATURAL_PLANT]:  { label: "Pure Natural — Plant",      color: "#4ade80", icon: "🌿", desc: "Harvested directly from plants, no chemical alteration" },
+    [Category.NATURAL_ANIMAL]: { label: "Pure Natural — Animal",     color: "#86efac", icon: "🐑", desc: "Harvested from animals, cleaned and spun into yarn" },
+    [Category.REGENERATED]:    { label: "Regenerated Cellulose",     color: "#38bdf8", icon: "🌊", desc: "Plant-based origin, heavy chemical processing to reform fibers" },
+    [Category.SYNTHETIC]:      { label: "Pure Synthetic",            color: "#f87171", icon: "🛢️", desc: "100% petroleum-derived plastic fibers, sheds microplastics" },
+    [Category.BIOSYNTHETIC]:   { label: "Lab-Grown Biosynthetic",    color: "#c084fc", icon: "🔬", desc: "Bio-engineered proteins or organisms grown in a lab setting" },
+    [Category.HIDE]:           { label: "Animal Hide & Skin",        color: "#d97706", icon: "🐄", desc: "Solid organic material, tanned and cured rather than woven" },
   };
 
   const FABRICS = {
     // 1. Pure Natural — Plant
     // Common
-    cotton:           { cat: "natural-plant" },
-    linen:            { cat: "natural-plant" },
-    flax:             { cat: "natural-plant" },   // same plant as linen
-    hemp:             { cat: "natural-plant" },
-    "true hemp":      { cat: "natural-plant" },
-    jute:             { cat: "natural-plant" },
+    cotton:           { cat: Category.NATURAL_PLANT },
+    linen:            { cat: Category.NATURAL_PLANT },
+    flax:             { cat: Category.NATURAL_PLANT },   // same plant as linen
+    hemp:             { cat: Category.NATURAL_PLANT },
+    "true hemp":      { cat: Category.NATURAL_PLANT },
+    jute:             { cat: Category.NATURAL_PLANT },
     // Rare / specialty bast & leaf fibers (all Amazon-valid)
-    abaca:            { cat: "natural-plant" },   // Manila hemp / banana plant
-    alfa:             { cat: "natural-plant" },   // esparto grass
-    broom:            { cat: "natural-plant" },   // Scotch broom plant
-    coir:             { cat: "natural-plant" },   // coconut husk
-    coconut:          { cat: "natural-plant" },
-    henequen:         { cat: "natural-plant" },   // agave family
-    kapok:            { cat: "natural-plant" },   // seed-pod fiber
-    maguey:           { cat: "natural-plant" },   // agave fiber
-    "manila hemp":    { cat: "natural-plant" },
-    ramie:            { cat: "natural-plant" },   // China grass
-    sisal:            { cat: "natural-plant" },   // agave sisalana
-    sunn:             { cat: "natural-plant" },   // Indian hemp / Crotalaria
+    abaca:            { cat: Category.NATURAL_PLANT },   // Manila hemp / banana plant
+    alfa:             { cat: Category.NATURAL_PLANT },   // esparto grass
+    broom:            { cat: Category.NATURAL_PLANT },   // Scotch broom plant
+    coir:             { cat: Category.NATURAL_PLANT },   // coconut husk
+    coconut:          { cat: Category.NATURAL_PLANT },
+    henequen:         { cat: Category.NATURAL_PLANT },   // agave family
+    kapok:            { cat: Category.NATURAL_PLANT },   // seed-pod fiber
+    maguey:           { cat: Category.NATURAL_PLANT },   // agave fiber
+    "manila hemp":    { cat: Category.NATURAL_PLANT },
+    ramie:            { cat: Category.NATURAL_PLANT },   // China grass
+    sisal:            { cat: Category.NATURAL_PLANT },   // agave sisalana
+    sunn:             { cat: Category.NATURAL_PLANT },   // Indian hemp / Crotalaria
 
     // 2. Pure Natural — Animal
     // Common
-    wool:             { cat: "natural-animal" },
-    cashmere:         { cat: "natural-animal" },
-    mohair:           { cat: "natural-animal" },
-    alpaca:           { cat: "natural-animal" },
-    angora:           { cat: "natural-animal" },
-    silk:             { cat: "natural-animal" },
-    down:             { cat: "natural-animal" },
+    wool:             { cat: Category.NATURAL_ANIMAL },
+    cashmere:         { cat: Category.NATURAL_ANIMAL },
+    mohair:           { cat: Category.NATURAL_ANIMAL },
+    alpaca:           { cat: Category.NATURAL_ANIMAL },
+    angora:           { cat: Category.NATURAL_ANIMAL },
+    silk:             { cat: Category.NATURAL_ANIMAL },
+    down:             { cat: Category.NATURAL_ANIMAL },
     // Rare luxury animal fibers (all Amazon-valid)
-    beaver:           { cat: "natural-animal" },
-    camel:            { cat: "natural-animal" },
-    "camel hair":     { cat: "natural-animal" },
-    "camel wool":     { cat: "natural-animal" },
-    cashgora:         { cat: "natural-animal" },  // cashmere-angora cross goat
-    "cashgora hair":  { cat: "natural-animal" },
-    "cashgora wool":  { cat: "natural-animal" },
-    guanaco:          { cat: "natural-animal" },  // South American camelid
-    "guanaco hair":   { cat: "natural-animal" },
-    "guanaco wool":   { cat: "natural-animal" },
-    llama:            { cat: "natural-animal" },
-    "llama hair":     { cat: "natural-animal" },
-    "llama wool":     { cat: "natural-animal" },
-    otter:            { cat: "natural-animal" },
-    "otter hair":     { cat: "natural-animal" },
-    "otter wool":     { cat: "natural-animal" },
-    vicuna:           { cat: "natural-animal" },  // rarest luxury fiber
-    "vicuna hair":    { cat: "natural-animal" },
-    "vicuna wool":    { cat: "natural-animal" },
-    yak:              { cat: "natural-animal" },
-    "yak hair":       { cat: "natural-animal" },
-    "yak wool":       { cat: "natural-animal" },
-    "mohair hair":    { cat: "natural-animal" },
-    "mohair wool":    { cat: "natural-animal" },
-    "cashmere hair":  { cat: "natural-animal" },
-    "cashmere wool":  { cat: "natural-animal" },
-    "alpaca hair":    { cat: "natural-animal" },
-    "alpaca wool":    { cat: "natural-animal" },
-    "angora hair":    { cat: "natural-animal" },
-    "angora wool":    { cat: "natural-animal" },
-    "beaver hair":    { cat: "natural-animal" },
-    "beaver wool":    { cat: "natural-animal" },
+    beaver:           { cat: Category.NATURAL_ANIMAL },
+    camel:            { cat: Category.NATURAL_ANIMAL },
+    "camel hair":     { cat: Category.NATURAL_ANIMAL },
+    "camel wool":     { cat: Category.NATURAL_ANIMAL },
+    cashgora:         { cat: Category.NATURAL_ANIMAL },  // cashmere-angora cross goat
+    "cashgora hair":  { cat: Category.NATURAL_ANIMAL },
+    "cashgora wool":  { cat: Category.NATURAL_ANIMAL },
+    guanaco:          { cat: Category.NATURAL_ANIMAL },  // South American camelid
+    "guanaco hair":   { cat: Category.NATURAL_ANIMAL },
+    "guanaco wool":   { cat: Category.NATURAL_ANIMAL },
+    llama:            { cat: Category.NATURAL_ANIMAL },
+    "llama hair":     { cat: Category.NATURAL_ANIMAL },
+    "llama wool":     { cat: Category.NATURAL_ANIMAL },
+    otter:            { cat: Category.NATURAL_ANIMAL },
+    "otter hair":     { cat: Category.NATURAL_ANIMAL },
+    "otter wool":     { cat: Category.NATURAL_ANIMAL },
+    vicuna:           { cat: Category.NATURAL_ANIMAL },  // rarest luxury fiber
+    "vicuna hair":    { cat: Category.NATURAL_ANIMAL },
+    "vicuna wool":    { cat: Category.NATURAL_ANIMAL },
+    yak:              { cat: Category.NATURAL_ANIMAL },
+    "yak hair":       { cat: Category.NATURAL_ANIMAL },
+    "yak wool":       { cat: Category.NATURAL_ANIMAL },
+    "mohair hair":    { cat: Category.NATURAL_ANIMAL },
+    "mohair wool":    { cat: Category.NATURAL_ANIMAL },
+    "cashmere hair":  { cat: Category.NATURAL_ANIMAL },
+    "cashmere wool":  { cat: Category.NATURAL_ANIMAL },
+    "alpaca hair":    { cat: Category.NATURAL_ANIMAL },
+    "alpaca wool":    { cat: Category.NATURAL_ANIMAL },
+    "angora hair":    { cat: Category.NATURAL_ANIMAL },
+    "angora wool":    { cat: Category.NATURAL_ANIMAL },
+    "beaver hair":    { cat: Category.NATURAL_ANIMAL },
+    "beaver wool":    { cat: Category.NATURAL_ANIMAL },
 
     // 3. Regenerated Cellulose
     // Common
-    viscose:          { cat: "regenerated" },
-    rayon:            { cat: "regenerated" },
-    modal:            { cat: "regenerated" },
-    lyocell:          { cat: "regenerated" },
-    tencel:           { cat: "regenerated" },
-    cupro:            { cat: "regenerated" },
-    acetate:          { cat: "regenerated" },
-    bamboo:           { cat: "regenerated" },
+    viscose:          { cat: Category.REGENERATED },
+    rayon:            { cat: Category.REGENERATED },
+    modal:            { cat: Category.REGENERATED },
+    lyocell:          { cat: Category.REGENERATED },
+    tencel:           { cat: Category.REGENERATED },
+    cupro:            { cat: Category.REGENERATED },
+    acetate:          { cat: Category.REGENERATED },
+    bamboo:           { cat: Category.REGENERATED },
     // Additional Amazon-valid regenerated fibers
-    triacetate:       { cat: "regenerated" },     // more chemically modified acetate
-    alginate:         { cat: "regenerated" },     // seaweed-derived, commercially produced fiber
-    protein:          { cat: "regenerated" },     // regenerated protein fibers (soy, milk, peanut)
+    triacetate:       { cat: Category.REGENERATED },     // more chemically modified acetate
+    alginate:         { cat: Category.REGENERATED },     // seaweed-derived, commercially produced fiber
+    protein:          { cat: Category.REGENERATED },     // regenerated protein fibers (soy, milk, peanut)
 
     // 4. Pure Synthetics
     // Common
-    polyester:        { cat: "synthetic" },
-    nylon:            { cat: "synthetic" },
-    polyamide:        { cat: "synthetic" },
-    acrylic:          { cat: "synthetic" },
-    elastane:         { cat: "synthetic" },
-    spandex:          { cat: "synthetic" },
-    lycra:            { cat: "synthetic" },
-    polyurethane:     { cat: "synthetic" },
+    polyester:        { cat: Category.SYNTHETIC },
+    nylon:            { cat: Category.SYNTHETIC },
+    polyamide:        { cat: Category.SYNTHETIC },
+    acrylic:          { cat: Category.SYNTHETIC },
+    elastane:         { cat: Category.SYNTHETIC },
+    spandex:          { cat: Category.SYNTHETIC },
+    lycra:            { cat: Category.SYNTHETIC },
+    polyurethane:     { cat: Category.SYNTHETIC },
     // Rare / technical synthetics (all Amazon-valid)
-    aramid:           { cat: "synthetic" },       // Kevlar / Nomex family
-    chlorofibre:      { cat: "synthetic" },       // PVC-based fiber
-    elastodiene:      { cat: "synthetic" },       // rubber-based elastic fiber
-    elastolefin:      { cat: "synthetic" },       // polyolefin elastic fiber
-    elastomultiester: { cat: "synthetic" },       // multi-component elastic polyester
-    fluorofibre:      { cat: "synthetic" },       // PTFE / Teflon-type fiber
-    "glass fibre":    { cat: "synthetic" },       // fiberglass
-    melamine:         { cat: "synthetic" },       // flame-resistant synthetic
-    modacrylic:       { cat: "synthetic" },       // modified acrylic (fire-resistant)
-    polycarbamide:    { cat: "synthetic" },       // polyurea fiber
-    polyethylene:     { cat: "synthetic" },       // UHMWPE (e.g. Dyneema)
-    polyimide:        { cat: "synthetic" },       // high-temp resistant fiber
-    polylactide:      { cat: "synthetic" },       // PLA — bio-derived but plastic
-    polypropylene:    { cat: "synthetic" },       // PP fiber, used in activewear linings
-    trivinyl:         { cat: "synthetic" },       // vinyl-based fiber
-    vinylal:          { cat: "synthetic" },       // polyvinyl alcohol fiber
+    aramid:           { cat: Category.SYNTHETIC },       // Kevlar / Nomex family
+    chlorofibre:      { cat: Category.SYNTHETIC },       // PVC-based fiber
+    elastodiene:      { cat: Category.SYNTHETIC },       // rubber-based elastic fiber
+    elastolefin:      { cat: Category.SYNTHETIC },       // polyolefin elastic fiber
+    elastomultiester: { cat: Category.SYNTHETIC },       // multi-component elastic polyester
+    fluorofibre:      { cat: Category.SYNTHETIC },       // PTFE / Teflon-type fiber
+    "glass fibre":    { cat: Category.SYNTHETIC },       // fiberglass
+    melamine:         { cat: Category.SYNTHETIC },       // flame-resistant synthetic
+    modacrylic:       { cat: Category.SYNTHETIC },       // modified acrylic (fire-resistant)
+    polycarbamide:    { cat: Category.SYNTHETIC },       // polyurea fiber
+    polyethylene:     { cat: Category.SYNTHETIC },       // UHMWPE (e.g. Dyneema)
+    polyimide:        { cat: Category.SYNTHETIC },       // high-temp resistant fiber
+    polylactide:      { cat: Category.SYNTHETIC },       // PLA — bio-derived but plastic
+    polypropylene:    { cat: Category.SYNTHETIC },       // PP fiber, used in activewear linings
+    trivinyl:         { cat: Category.SYNTHETIC },       // vinyl-based fiber
+    vinylal:          { cat: Category.SYNTHETIC },       // polyvinyl alcohol fiber
 
     // 5. Lab-Grown Biosynthetics
-    mycelium:         { cat: "biosynthetic" },
-    "bio-silk":       { cat: "biosynthetic" },
-    seaweed:          { cat: "biosynthetic" },
-    "pinatex":        { cat: "biosynthetic" },
-    "qmonos":         { cat: "biosynthetic" },    // spider-silk protein by Spiber
-    "microsilk":      { cat: "biosynthetic" },    // Bolt Threads bio-silk
-    "zoa":            { cat: "biosynthetic" },    // Modern Meadow bio-leather
+    mycelium:         { cat: Category.BIOSYNTHETIC },
+    "bio-silk":       { cat: Category.BIOSYNTHETIC },
+    seaweed:          { cat: Category.BIOSYNTHETIC },
+    "pinatex":        { cat: Category.BIOSYNTHETIC },
+    "qmonos":         { cat: Category.BIOSYNTHETIC },    // spider-silk protein by Spiber
+    "microsilk":      { cat: Category.BIOSYNTHETIC },    // Bolt Threads bio-silk
+    "zoa":            { cat: Category.BIOSYNTHETIC },    // Modern Meadow bio-leather
 
     // 6. Animal Hides & Skins
-    leather:          { cat: "hide" },
-    "faux leather":   { cat: "synthetic" },  // PU/PVC-based, not animal hide
-    suede:            { cat: "hide" },
-    shearling:        { cat: "hide" },
-    nubuck:           { cat: "hide" },
+    leather:          { cat: Category.HIDE },
+    "faux leather":   { cat: Category.SYNTHETIC },  // PU/PVC-based, not animal hide
+    suede:            { cat: Category.HIDE },
+    shearling:        { cat: Category.HIDE },
+    nubuck:           { cat: Category.HIDE },
   };
 
   // ─── Detect product page ──────────────────────────────────────────────────
