@@ -200,7 +200,8 @@
     const clean = text
       .replace(/[\u200B-\u200F\uFEFF\u00AD]/g, "") // strip invisible
       .replace(/\r\n/g, "\n")
-      .replace(/\s*\/\s*/g, ","); // normalise " / " separators to ","
+      .replace(/\uFF0C/g, ",")        // normalize full-width comma \uFF0C\u2192 ,
+      .replace(/\s*\/\s*/g, ",");     // normalise " / " separators to ","
 
     // ── Pass 1: percentage-first  "95% Polyester, 5% Elastane" ───────────────
     const pctFirst = new RegExp(
