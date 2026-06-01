@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Fabric Detector for Amazon",
+  "version": "1.0",
+  "description": "Instantly see fabric composition (polyester, cotton, rayon, etc.) on Amazon clothing pages.",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["*://www.amazon.com/*", "*://www.amazon.co.uk/*", "*://www.amazon.ca/*", "*://www.amazon.com.au/*", "*://www.amazon.de/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

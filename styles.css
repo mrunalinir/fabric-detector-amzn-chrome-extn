@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── Widget shell ──────────────────────────────────────────────────────────── */
+#fd-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 320px;
+  max-height: 80vh;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+  font-family: 'DM Sans', sans-serif;
+  color: #e0e0e0;
+  z-index: 999999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  user-select: none;
+}
+#fd-widget.fd-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+#fd-widget.fd-hiding {
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.fd-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 14px 11px;
+  background: #111;
+  border-bottom: 1px solid #1e1e1e;
+  flex-shrink: 0;
+}
+.fd-logo { font-size: 17px; line-height: 1; }
+.fd-title {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666;
+}
+.fd-close {
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+.fd-close:hover { color: #e0e0e0; background: #2a2a2a; }
+
+/* ── Scrollable body ───────────────────────────────────────────────────────── */
+.fd-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 10px 0 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+.fd-body::-webkit-scrollbar { width: 4px; }
+.fd-body::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+
+/* ── Category section ──────────────────────────────────────────────────────── */
+.fd-section {
+  padding: 4px 14px 10px;
+  border-bottom: 1px solid #191919;
+}
+.fd-section:last-child { border-bottom: none; }
+
+/* Category header row */
+.fd-cat-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 0 6px;
+  border-left: 3px solid transparent;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+.fd-cat-icon { font-size: 16px; line-height: 1.3; flex-shrink: 0; }
+.fd-cat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.fd-cat-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.fd-cat-desc {
+  font-size: 10px;
+  color: #4a4a4a;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+/* ── Fabric rows ───────────────────────────────────────────────────────────── */
+.fd-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0 2px 8px;
+}
+.fd-fabric-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #c8c8c8;
+}
+.fd-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fd-pct-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ── Progress bars ─────────────────────────────────────────────────────────── */
+.fd-bar-wrap {
+  margin: 2px 0 4px 8px;
+  height: 3px;
+  background: #1e1e1e;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.fd-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0.8;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+.fd-foot {
+  padding: 8px 14px 12px;
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 0.03em;
+  text-align: center;
+  flex-shrink: 0;
+  border-top: 1px solid #191919;
+}
+
+/* ── Empty state ───────────────────────────────────────────────────────────── */
+.fd-empty {
+  padding: 20px 16px 18px;
+  text-align: center;
+}
+.fd-empty span { font-size: 26px; display: block; margin-bottom: 8px; }
+.fd-empty p { font-size: 12px; line-height: 1.6; margin: 0; color: #555; }
+.fd-no-data .fd-header { border-bottom: none; }
